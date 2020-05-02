@@ -1,0 +1,19 @@
+{
+  "name": "webcloud",
+  "version": "1.0.0",
+  "description": "A cloud on a website",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Trisna22/WebCloud.git"
+  },
+  "author": "trisna quebe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Trisna22/WebCloud/issues"
+  },
+  "homepage": "https://github.com/Trisna22/WebCloud#readme"
+}
