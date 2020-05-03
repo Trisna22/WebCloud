@@ -25,6 +25,10 @@
         margin-bottom: 0px;
 }
 
+.inputBox input:hover {
+        cursor: pointer;
+}
+
 .registerButton {
         background-color: darkblue;
         color: white;

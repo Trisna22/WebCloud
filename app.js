@@ -11,7 +11,7 @@ app.use(session({
 }));
 
 const sessionHandler = require('./sessionHandler');
-const accountHandler = require("./accountHanlder");
+const accountHandler = require("./accountHandler");
 
 const host = '0.0.0.0';
 const port = 8080;
@@ -64,25 +64,18 @@ app.post("/register", urlencodedParser, function(request, response) {
                 console.log("New sessionID: " + request.session.sessionID)
         }
 
+        // Get the post data.
         var userName = request.body.userName;
         var firstName = request.body.firstName;
         var lastName = request.body.lastName;
         var email = request.body.email;
         var password = request.body.password;
         var password2 = request.body.password2;
+        var agreeTerms = request.body.agreeTerms;
 
-        var aH = new accountHandler();
-        var errorMsg = aH.registerNewAccount(userName, firstName, lastName,
-                email, password, password2, request.session);
-        if (errorMsg !== "NO_ERROR")
-        {
-                response.send(buildRegisterPage(errorMsg));
-        }
-        else {
-                response.send(buildRegisterPage
-                        ("<p style=\"color: green\">" +
-                        "Succesfully created an account!</p>"));
-        }
+        var aH = new accountHandler(request, response);
+        aH.registerNewAccount(userName, firstName, lastName,
+                email, password, password2, agreeTerms, request.session);
 });
 
 
