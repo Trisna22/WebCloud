@@ -26,7 +26,7 @@ app.get('/', function (request, response) {
 });
 
 app.get('/login', function(request, response) {
-        response.send(buildRegisterPage
+        response.send(buildLoginPage
                 ("<p>In order to proceed you need " +
                 "to <a href=\"/login\">login</a> or" +
                 " create an account first!</p>")

@@ -1,6 +1,7 @@
 <html>
 <head>
         <link rel="stylesheet" href="/static/default-style.css">  
+        <link rel="stylesheet" href="/static/login-style.css">
 </head>
 <body>
         <header>
@@ -21,7 +22,19 @@
                 </ul>
                 </div>
         </header>
-        
+        <br><br>
+        <center>
+                <div class="loginBox">
+                        <div class="inputBox">
+                                <h3>Sign in account</h3>
+                                <form action="/login" method="post">
+                                        <input type="text" name="userName" placeholder="Username/Email-address"><br><br>
+                                        <input type="password" name="password" placeholder="Password"><br><br>
+                                        <button type="submit" >Login</button>
+                                </form>
+                        </div>
+                </div>
+        </center>
         
 </body>
 </html>

@@ -10,14 +10,6 @@ var pool = mysql.createPool({
         database : 'WebCloudDB'
 });
 
-/*var pools = mysql.createPool({
-        host: 'localhost',
-        connectionLimit: 5,
-        user: 'user',
-        password: 'Password123',
-        database: 'WebCloudDB'
-});*/
-
 class accountHandler {
         constructor(request, response) {
                 this.request = request;
@@ -31,8 +23,11 @@ class accountHandler {
                 this.response.send(html);
         }
 
+        /*
+                Registering a new account on the server.
+        */
         registerNewAccount(userName, firstName, lastName,
-                email, password, password2, agreeTerms, session) {
+                email, password, password2, agreeTerms) {
                 var baseError = "<p style=\"color: red;\">";
 
                 // Check if any inputbox is empty.
@@ -86,7 +81,7 @@ class accountHandler {
                                 }
 
                                 const result2 = await this.createNewAccount(userName, firstName, lastName,
-                                        email, password);
+                                        email);
                                 if (result2 === false) {
                                         this.buildRegisterPage
                                         (baseError + 
@@ -107,6 +102,15 @@ class accountHandler {
                                         "Succesfully created an account!</p>");
                                 }
                         }
+                })();
+        }
+
+        /*
+                Logging in an account.
+        */
+        doLogin(userName, password) {
+                (async () => {
+                        return;
                 })();
         }
 
@@ -155,6 +159,7 @@ class accountHandler {
                         
                         pool.getConnection(function(err, connection) {
 
+                                // Check if fields already exist in database.
                                 connection.query(
                                 "SELECT EXISTS (SELECT * FROM UserAccounts "+
                                 "WHERE " + field + " = '" + value + "') as result;",
@@ -166,11 +171,16 @@ class accountHandler {
                 });
         }
 
-       createNewAccount(userName, firstName, lastName, email, password) {
+
+        /*
+                Adds information from the user to the database. part 1
+        */
+        createNewAccount(userName, firstName, lastName, email) {
                 return new Promise ((resolve, reject) => {
 
                         pool.getConnection(function (err, connection) {
 
+                                // Add information of the user to the database.
                                 connection.query("INSERT INTO UserAccounts VALUES ('" + 
                                 firstName + "','" + lastName + "','" + userName + "','" + email + "');",
                                 (err, result) => {
@@ -186,6 +196,9 @@ class accountHandler {
                 });
         }
 
+        /*
+                Adds information from the user to the database. part 2
+        */
         createNewAccount2(email, password) {
                 return new Promise((resolve, reject) => {
                         pool.getConnection(function(err, connection) {
@@ -196,8 +209,9 @@ class accountHandler {
                                 // Create a hashed password with the salt.
                                 var hash = crypto.createHash('md5').update(salt + password + salt).digest('hex');
 
+                                // Add the hash and salt to database.
                                 connection.query("INSERT INTO UserCredentials VALUES ('" + 
-                                        email + "','" + salt + "','" + hash + "');",
+                                        email + "','" + hash + "','" + salt + "');",
                                         (err, result) => {
                                         connection.release();
 

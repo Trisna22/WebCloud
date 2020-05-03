@@ -1,0 +1,28 @@
+.loginBox {
+        margin-top: 100px;
+        width: 80%;
+        height: 400px;
+        border: 2px solid #ccc;
+        border-radius:  10px;
+        background-color: rgb(235, 231, 231);
+}
+.loginBox h3 {
+        color: darkblue;
+        font-size: 30px;
+}
+
+.inputBox {
+        margin-top: 40px;
+        background-color: #ccc;
+        padding: 20px;
+        width: 80%;
+        border-radius: 5px;
+}
+
+.inputBox p {
+        margin-bottom: 0px;
+}
+
+.inputBox input:hover {
+        cursor: pointer;
+}
