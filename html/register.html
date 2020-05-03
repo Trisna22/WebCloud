@@ -1,0 +1,44 @@
+<html>
+<head>
+        <link rel="stylesheet" href="/static/default-style.css">  
+        <link rel="stylesheet" href="/static/register-style.css">
+</head>
+<body>
+        <header>
+                <div>
+                <ul>
+                        <li onclick="window.location.href='/'">
+                                <h3>WebCloud</h3>
+                        </li>
+                        <li onclick="window.location.href='/about-us'">
+                                <h3>About us</h3>
+                        </li>
+                        <li onclick="window.location.href='/register'">
+                                <h3>Register</h3>
+                        </li>
+                        <li onclick="window.location.href='/login'">
+                                <h3>Login</h3>
+                        </li>
+                </ul>
+                </div>
+        </header>
+<center>
+        <div class="registerBox">
+                <div class="inputBox">
+                <h3>Create a new account</h3>
+                <form action="/register" method="post">
+                        <input type="text" name="userName" placeholder="Username"/><br><br>
+                        <input type="text" name="firstName" placeholder="Firstname"/>
+                        <input type="text" name="lastName" placeholder="LastName"/><br><br>
+                        <input type="text" name="email" placeholder="johndoe@example.com"/><br><br>
+                        <input type="password" name="password" placeholder="New password">
+                        <input type="password" name="password2" placeholder="Confirm password"><br><br>
+                        <input type="checkbox" name="agreeTerms">I agree with the terms and condition.</input><br><br>
+                        <button type="submit" class="registerButton">Register</button>
+                </form>
+                </div>
+                {{registerText}}
+        </div>
+</center>
+</body>
+</html>

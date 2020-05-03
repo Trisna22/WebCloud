@@ -1,0 +1,40 @@
+
+.registerBox {
+        margin-top: 100px;
+        width: 80%;
+        height: 60%;
+        border: 2px solid #ccc;
+        border-radius:  10px;
+        background-color: rgb(235, 231, 231);
+}
+
+.registerBox h3 {
+        color: darkblue;
+        font-size: 30px;
+}
+
+.inputBox {
+        margin-top: 40px;
+        background-color: #ccc;
+        padding: 20px;
+        width: 80%;
+        border-radius: 5px;
+}
+
+.inputBox p {
+        margin-bottom: 0px;
+}
+
+.registerButton {
+        background-color: darkblue;
+        color: white;
+        border: none;
+        width: 120px;
+        height: 50px;
+        font-size: 20px;
+}
+
+.registerButton:hover {
+        background-color: rgb(8, 8, 179);
+        cursor: pointer;
+}
