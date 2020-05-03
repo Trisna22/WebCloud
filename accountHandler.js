@@ -1,5 +1,6 @@
 var mysql = require('mysql');
 const fs = require('fs');
+var crypto = require('crypto');
 
 var pool = mysql.createPool({
         host     : 'localhost',
@@ -89,7 +90,16 @@ class accountHandler {
                                 if (result2 === false) {
                                         this.buildRegisterPage
                                         (baseError + 
-                                        "Failed to create a new account!</p>");
+                                        "Failed to create a new account! Error code 2001</p>");
+                                        return;
+                                }
+
+                                const result3 = await this.createNewAccount2(email, password);
+                                if (result3 === false) {
+                                        this.buildRegisterPage
+                                        (baseError + 
+                                        "Failed to create a new account! Error code 2002</p>");
+                                        return;
                                 }
                                 else {
                                         this.buildRegisterPage
@@ -98,8 +108,6 @@ class accountHandler {
                                 }
                         }
                 })();
-
-                //return createNewAccount(userName, firstName, lastName, email, password);
         }
 
         checkIfEmpty(userName, firstName, lastName,
@@ -172,6 +180,32 @@ class accountHandler {
                                                 console.log("Error occured: " + err);
                                                 return reject(false);
                                         }
+                                        return resolve(true);
+                                });
+                        });
+                });
+        }
+
+        createNewAccount2(email, password) {
+                return new Promise((resolve, reject) => {
+                        pool.getConnection(function(err, connection) {
+
+                                // Generate a salt
+                                var salt = crypto.randomBytes(16).toString('hex');
+
+                                // Create a hashed password with the salt.
+                                var hash = crypto.createHash('md5').update(salt + password + salt).digest('hex');
+
+                                connection.query("INSERT INTO UserCredentials VALUES ('" + 
+                                        email + "','" + salt + "','" + hash + "');",
+                                        (err, result) => {
+                                        connection.release();
+
+                                        if (err) {
+                                                console.log("Error occured: " + err);
+                                                return reject(false);
+                                        }
+
                                         return resolve(true);
                                 });
                         });
