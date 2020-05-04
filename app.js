@@ -46,6 +46,11 @@ app.get('/about-us', function(request, response) {
         response.send(html);
 });
 
+app.get('/my-files', function(request, response) {
+        var html = fs.readFileSync('html/my-files.html').toString();
+        response.send(html);
+});
+
 app.post('/login', urlencodedParser, function(request, response) {
 
         if (request.session.sessionID === undefined) {
@@ -53,6 +58,14 @@ app.post('/login', urlencodedParser, function(request, response) {
                 var sH = new sessionHandler();
                 request.session.sessionID = sH.createNewSessionID();
                 console.log("New sessionID: " + request.session.sessionID)
+        }
+        else {
+                if (request.session.loggedin === true) {
+                        response.send(buildLoginPage(
+                                "<p style=\"color: green\">You already logged in!</p>"
+                        ));
+                        return;
+                }
         }
 
         // Get post data.
@@ -65,11 +78,23 @@ app.post('/login', urlencodedParser, function(request, response) {
 });
 
 app.post("/register", urlencodedParser, function(request, response) {
+        
         if (request.session.sessionID === undefined) {
                 console.log("New user!");
                 var sH = new sessionHandler();
                 request.session.sessionID = sH.createNewSessionID();
                 console.log("New sessionID: " + request.session.sessionID)
+
+                request.session.loggedin = false;
+                request.session.tries = 0;
+        }
+        else {
+                if (request.session.loggedin === true) {
+                        response.send(buildRegisterPage(
+                                "<p style=\"color: green\">You already logged in!</p>"
+                        ));
+                        return;
+                }
         }
 
         // Get the post data.

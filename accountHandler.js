@@ -34,6 +34,7 @@ class accountHandler {
         */
         registerNewAccount(userName, firstName, lastName,
                 email, password, password2, agreeTerms) {
+                
                 var baseError = "<p style=\"color: red;\">";
 
                 // Check if any inputbox is empty.
@@ -180,6 +181,7 @@ class accountHandler {
                         this.request.session.tries = 0;
                         this.request.session.username = userName;
                         this.request.session.email = email;
+                        this.request.session.loggedin = true;
 
                         this.buildLoginPage(
                                 "<p style=\"color: green\">" +
