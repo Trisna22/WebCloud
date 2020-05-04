@@ -26,3 +26,17 @@
 .inputBox input:hover {
         cursor: pointer;
 }
+
+.loginButton {
+        background-color: darkblue;
+        color: white;
+        border: none;
+        width: 120px;
+        height: 50px;
+        font-size: 20px;
+}
+
+.loginButton:hover {
+        background-color: rgb(8, 8, 179);
+        cursor: pointer;
+}

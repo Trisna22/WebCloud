@@ -26,13 +26,14 @@
         <center>
                 <div class="loginBox">
                         <div class="inputBox">
-                                <h3>Sign in account</h3>
-                                <form action="/login" method="post">
-                                        <input type="text" name="userName" placeholder="Username/Email-address"><br><br>
-                                        <input type="password" name="password" placeholder="Password"><br><br>
-                                        <button type="submit" >Login</button>
-                                </form>
+                        <h3>Sign in account</h3>
+                        <form action="/login" method="post">
+                                <input type="text" name="userName" placeholder="Username/Email-address"><br><br>
+                                <input type="password" name="password" placeholder="Password"><br><br>
+                                <button type="submit" class="loginButton">Login</button>
+                        </form>
                         </div>
+                        {{loginText}}
                 </div>
         </center>
         

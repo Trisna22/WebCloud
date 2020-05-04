@@ -23,6 +23,12 @@ class accountHandler {
                 this.response.send(html);
         }
 
+        buildLoginPage(message) {
+                var html = fs.readFileSync('html/login.html').toString();
+                html = html.replace('{{loginText}}', message);
+                this.response.send(html);
+        }
+
         /*
                 Registering a new account on the server.
         */
@@ -31,8 +37,8 @@ class accountHandler {
                 var baseError = "<p style=\"color: red;\">";
 
                 // Check if any inputbox is empty.
-                if (this.checkIfEmpty(userName, firstName, lastName,
-                        email, password, password2) === true)
+                if (this.checkIfEmpty([userName, firstName, lastName,
+                        email, password, password2]) === true)
                 {
                         this.buildRegisterPage(baseError + "Make sure every input box is filled with data!</p>");
                         return;
@@ -108,20 +114,85 @@ class accountHandler {
         /*
                 Logging in an account.
         */
-        doLogin(userName, password) {
-                (async () => {
+        doLogin(userName, password, sessionID) {
+
+                var baseError = "<p style=\"color: red;\">";
+                this.request.session.tries += 1;
+
+                // If the user had too many tries.
+                if (this.request.session.tries >= 8) {
+                        this.buildLoginPage(
+                                baseError + "Too many tries, please contact the adminstrator for resetting your account!</p>"
+                        );
                         return;
+                }
+
+                 // Check if any inputbox is empty.
+                 if (this.checkIfEmpty([userName, password]) === true)
+                {
+                        this.buildLoginPage(baseError + "Make sure every input box is filled with data!</p>");
+                        return;
+                }
+
+                // Input validation.
+                if (this.inputValidation([userName, password]) === true)
+                {
+                        this.buildLoginPage(baseError + "Characters like ' \" \\ / | ` are not allowed! </p>");
+                        return;
+                }
+
+                (async () => {
+                        // Check if the account exists.
+                        const result = await this.checkIfAlreadyExists(userName, "userName");
+                        // Maybe the username is an email-address
+                        const result2 = await this.checkIfAlreadyExists(userName, "emailAddress");
+                        if (result === 0 && result2 === 0) {
+                                this.buildLoginPage(baseError + "Unknown username or password given!</p>");
+                                return;
+                        }
+
+                        // Get the email-address from username if username is given.
+                        var email = userName;
+                        if (result === 1) {
+                                email = await this.getEmailFromUsername(userName);
+                                if (email === "" || email.indexOf("ERROR") != -1) {
+                                        this.buildLoginPage(baseError + "An error code 2003 occured while processing your login! <br>Please contact the adminstrator!</p>");
+                                        return;
+                                }
+
+                        }
+
+                        // Get the salt.
+                        const salt = await this.getSaltFromEmail(email);
+                        if (salt === "" || salt.indexOf("ERROR")  != -1) {
+                                this.buildLoginPage(baseError + "An error code 2003 occured while processing your login! <br>Please contact the adminstrator!</p>");
+                                return;
+                        }
+
+                        // Now check if login is correct.
+                        const loggedIn = await this.checkCredentials(email, salt, password);
+                        if (loggedIn === false) {
+                                this.buildLoginPage(baseError + "Invalid username or password given!</p>");
+                                return;
+                        }
+
+                        // Correct login.
+                        this.request.session.tries = 0;
+                        this.request.session.username = userName;
+                        this.request.session.email = email;
+
+                        this.buildLoginPage(
+                                "<p style=\"color: green\">" +
+                                "Succesfully logged in!</p>"
+                        );
                 })();
         }
 
-        checkIfEmpty(userName, firstName, lastName,
-                email, password, password2) {
+        checkIfEmpty(strList) {
 
-                if (userName === "" || firstName === "" || 
-                        lastName === "" || email === "" || 
-                        password === "" || password2 === "")
-                        return true;
-                
+                for (var i = 0; i < strList.length; i++)
+                        if (strList[i] === "" || strList[i].length === 0)
+                                return true;
                 return false;
         }
 
@@ -165,12 +236,17 @@ class accountHandler {
                                 "WHERE " + field + " = '" + value + "') as result;",
                                 (err, result) => {
                                         connection.release();
+
+                                        if (result.length === 0) {
+                                                console.log("result is empty")
+                                                return resolve("ERROR result is empty!");
+                                        }
+
                                         return err ? reject(err) : resolve(result[0].result);
                                 });
                         });
                 });
         }
-
 
         /*
                 Adds information from the user to the database. part 1
@@ -221,6 +297,70 @@ class accountHandler {
                                         }
 
                                         return resolve(true);
+                                });
+                        });
+                });
+        }
+
+        /*
+                Get the email-address from username.
+        */
+        getEmailFromUsername(userName) {
+                return new Promise((resolve, reject) => {
+                        pool.getConnection(function(err, connection) {
+                                connection.query(
+                                "SELECT emailAddress as result FROM UserAccounts WHERE userName = '" + userName + "';"
+                                , (err, data) => {
+                                        connection.release();
+
+                                        if (data.length === 0) {
+                                                return resolve("ERROR result is empty!");
+                                        }
+
+                                        return err ? reject("ERROR " + err) : resolve(data[0].result);  
+                                });
+                        });
+                });
+        }
+
+        getSaltFromEmail(email) {
+                return new Promise((resolve, reject) => {
+                        pool.getConnection(function(err, connection) {
+                                connection.query(
+                                "SELECT salt as result FROM UserCredentials WHERE emailAddress = '" + email + "';",
+                                 (err, data) => {
+                                        connection.release();
+
+                                        if (data.length === 0) {
+                                                return resolve("ERROR result is empty!");
+                                        }
+                                        return err ? reject("ERROR " + err) : resolve(data[0].result);
+                                });
+                        });
+                });
+        }
+
+        checkCredentials(email, salt, password) {
+
+                // Hash the password.
+                var hashedPassword = crypto.createHash('md5').update(salt + password + salt).digest('hex');
+
+                console.log("")
+                return new Promise((resolve, reject) => {
+                        pool.getConnection(function(err, connection) {
+                                connection.query(
+                                "SELECT hashedPassword as result FROM UserCredentials WHERE emailAddress = '" + 
+                                email + "' AND salt = '" + salt + "';", (err, data) => {
+                                        connection.release();
+
+                                        if (data.length === 0) {
+                                                return resolve(false);
+                                        }
+
+                                        if (data[0].result.toString() === hashedPassword.toString())
+                                                return resolve(true);
+                                        else
+                                                return resolve(false);
                                 });
                         });
                 });

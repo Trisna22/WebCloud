@@ -28,8 +28,8 @@ app.get('/', function (request, response) {
 app.get('/login', function(request, response) {
         response.send(buildLoginPage
                 ("<p>In order to proceed you need " +
-                "to <a href=\"/login\">login</a> or" +
-                " create an account first!</p>")
+                "to login or" +
+                " <a href=\"/register\">create</a> an account first!</p>")
                 );
 });
 
@@ -54,6 +54,14 @@ app.post('/login', urlencodedParser, function(request, response) {
                 request.session.sessionID = sH.createNewSessionID();
                 console.log("New sessionID: " + request.session.sessionID)
         }
+
+        // Get post data.
+        var username = request.body.userName;
+        var password = request.body.password;
+        var sessionID = request.session.sessionID;
+
+        var aH = new accountHandler(request, response);
+        aH.doLogin(username, password,sessionID)
 });
 
 app.post("/register", urlencodedParser, function(request, response) {
