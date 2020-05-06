@@ -1,6 +1,6 @@
+
 const express = require('express');
-const session = require('express-session');
-var app = express();
+const router = express.Router();
 
 
 // Creating API from codeproject
@@ -10,11 +10,9 @@ var app = express();
 //https://dotnetcoretutorials.com/2018/07/21/uploading-images-in-a-pure-json-api/
 
 
-app.get('/test', (request, response) => {
+/// GET :8080/api/test
+router.get('/test', (request, response) => {
 	response.json({"test":"Welcome by a API"});
 });
 
-app.listen(8081, () => {
-	var dateTime = new Date();
-	console.log("Server running since " + dateTime);
-});
+module.exports = router;

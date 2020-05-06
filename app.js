@@ -20,6 +20,9 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 app.use('/static', express.static('html/static'));
 
+app.use('/api', require('./api/api.js'));
+
+
 app.get('/', function (request, response) {
         var html = fs.readFileSync("html/index.html").toString();
         response.send(html);
@@ -129,6 +132,7 @@ var crt_domain = fs.readFileSync('domain.crt', 'utf8');
 var credentials = {key: key_domain, cert: crt_domain};
 
 var httpsServer = https.createServer(credentials, app);
+
 
 httpsServer.listen(port);
 console.log("Listening for connections.");
