@@ -1,0 +1,112 @@
+.folderOptions {
+        background-color: rgb(182, 180, 180);
+        width: 100%;
+        height: 60px;
+}
+
+.folderOptions ul {
+        list-style-type: none;
+        margin: 0px;
+        overflow: hidden;
+        padding: 10px;
+}
+
+.folderOptions ul li {
+        margin-left: 20px;
+        padding: 10px;
+        float: left;
+        display: block;
+        color: black;
+        background-color: rgba(211, 211, 211, 0.356);
+        border-radius: 5px;
+        border: 1px solid;
+}
+
+.folderOptions ul li:hover {
+        background-color: rgba(105, 105, 105, 0.466);
+        cursor: pointer;
+}
+
+.folderContent {
+        height: 100%;
+        width: 100%;
+        margin-top: 20px;
+}
+
+.fileBar {
+        overflow: auto;
+        list-style-type: none;
+        width: 500px;
+        border: 1px solid black;
+        border-radius: 40px;
+}
+
+.fileBar:hover {
+        background-color: #eee;
+        cursor: pointer;
+}
+
+.fileIcon {
+        float:left;
+        margin: 10px 15px 0 25px;
+        width: 80px;
+        height: 80px;
+}
+
+.fileName {
+        float: left;
+}
+
+.fileDetails {
+        margin-left: 300px;
+        float: left;
+        font-size: 15px;;
+}
+
+.fileList ul {
+        overflow: auto;
+        list-style-type: none;
+}
+
+.fileList li {
+        float: left;
+        display: block;
+        padding: 10px;
+
+}
+
+.fileItem {
+        background-color: cornsilk;
+        overflow: hidden;
+        border: 1px solid;
+        margin: 0px;
+}
+
+.fileList {
+        background-color: lightgray;
+
+}
+
+.file {
+        background-color: lightgray;
+        overflow: hidden;
+        padding: 10px;
+        border-left: 3px solid black;
+        border-right: 3px solid black;
+        border-bottom: 3px solid black;
+}
+
+.fileName {
+        width: 100px;
+        padding: 10px;
+}
+
+.fileDate {
+        width: 200px;
+        padding: 10px;
+}
+
+.fileOwner {
+        width: 100px;
+        padding: 10px;
+}

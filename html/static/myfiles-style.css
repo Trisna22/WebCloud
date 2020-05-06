@@ -27,16 +27,50 @@
         cursor: pointer;
 }
 
-.folderContent {
-        height: 100%;
+
+.fileList {
         width: 100%;
-        margin-top: 20px;
+        background-color: gainsboro;
+        border-collapse: collapse;
 }
 
-.fileBar {
-        height: 30px;
-        width: 80%;
-        margin-left: 20px;
-        background-color: darkgray;
+th {
+        background-color: rgba(105, 105, 105, 0.466);
+
+}
+
+.fileList tr {
+        border: 1px solid black;
+        background-color: gainsboro;
+        max-height: 30px;
+
+}
+
+.fileList tr:hover {
+        cursor: pointer;
+        background-color: rgba(105, 105, 105, 0.466);
+}
+
+.fileSelect {
+        text-align: center;
+}
+
+.fileName {
+        text-align: center;
+}
+
+.fileDate {
+        min-width: 150px;;
         padding: 10px;
+        text-align: center;
+}
+
+.fileOwner {
+        padding: 10px;
+        text-align: center;
+}
+
+.fileSize {
+        padding: 10px;
+        text-align: center;
 }
