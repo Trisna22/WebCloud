@@ -1,7 +1,7 @@
 <html>
 <head>
-        <link rel="stylesheet" href="/static/default-style.css">  
-        <link rel="stylesheet" href="/static/myfiles-style.css">  
+        <link rel="stylesheet" href="/static/default-style.css">
+	<link rel="stylesheet" href="/static/myfiles-style.css"></link>
 </head>
 <body>
         <header>
@@ -16,15 +16,11 @@
                         <li onclick="window.location.href='/about-us'">
                                 <h3>About us</h3>
                         </li>
-                        <li onclick="window.location.href='/register'">
-                                <h3>Register</h3>
-                        </li>
-                        <li onclick="window.location.href='/login'">
-                                <h3>Login</h3>
-                        </li>
+                        {{LOGIN}}
                 </ul>
                 </div>
         </header>
+
         <div style="background-color: gainsboro;height: 100%;">
                 <div class="folderOptions">
                         <ul>

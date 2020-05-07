@@ -25,6 +25,7 @@ app.use('/api', require('./api/api.js'));
 
 app.get('/', function (request, response) {
         var html = fs.readFileSync("html/index.html").toString();
+        html = html.replace('{{LOGIN}}', buildHeader(request));
         response.send(html);
 });
 
@@ -46,11 +47,13 @@ app.get('/register', function(request, response) {
 
 app.get('/about-us', function(request, response) {
         var html = fs.readFileSync('html/about-us.html').toString();
+        html = html.replace('{{LOGIN}}', buildHeader(request));
         response.send(html);
 });
 
 app.get('/my-files', function(request, response) {
         var html = fs.readFileSync('html/my-files.html').toString();
+        html = html.replace('{{LOGIN}}', buildHeader(request));
         response.send(html);
 });
 
@@ -114,6 +117,35 @@ app.post("/register", urlencodedParser, function(request, response) {
                 email, password, password2, agreeTerms, request.session);
 });
 
+app.get('/logout', (request, response)=> {
+        if (request.session.loggedin === undefined) {
+                response.send(buildLoginPage("<p style=\"color: red\">You are not logged in!</p>"));
+                return;
+        }
+        
+        request.session.loggedin = false;
+        request.session.sessionID = null;
+        request.session.destroy(function(error) {
+                if (error) {
+                        console.log(error);
+                        return;
+                }
+
+                response.send(buildLoginPage(
+                        "<p style=\"color: green\">Succesfully logged out!</p>"
+                ));
+        });
+
+});
+
+function buildHeader(request) {
+        if (request.session.loggedin !== undefined && request.session.loggedin === true) {
+                return "<li onclick=\"window.location.href='/logout'\"><h3>Logout</h3></li>";
+        }
+
+        return "<li onclick=\"window.location.href='/register'\"><h3>Register</h3></li>"+
+        "<li onclick=\"window.location.href='/login'\"><h3>Login</h3></li>";
+}
 
 function buildRegisterPage(message) {
         var html = fs.readFileSync('html/register.html').toString();

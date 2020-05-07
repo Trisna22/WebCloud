@@ -104,9 +104,7 @@ class accountHandler {
                                         return;
                                 }
                                 else {
-                                        this.buildRegisterPage
-                                        ("<p style=\"color: green\">" +
-                                        "Succesfully created an account!</p>");
+                                        this.response.redirect('/my-files');
                                 }
                         }
                 })();
@@ -183,10 +181,7 @@ class accountHandler {
                         this.request.session.email = email;
                         this.request.session.loggedin = true;
 
-                        this.buildLoginPage(
-                                "<p style=\"color: green\">" +
-                                "Succesfully logged in!</p>"
-                        );
+                        this.response.redirect('/my-files');
                 })();
         }
 
