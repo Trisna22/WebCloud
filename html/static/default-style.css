@@ -35,6 +35,7 @@ header div li:hover {
         cursor: pointer;
 }
 
-.userName {
-
+.usernameLabel {
+        float: right;
+        margin-right: 30px;
 }

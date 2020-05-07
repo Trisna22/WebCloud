@@ -140,7 +140,8 @@ app.get('/logout', (request, response)=> {
 
 function buildHeader(request) {
         if (request.session.loggedin !== undefined && request.session.loggedin === true) {
-                return "<li onclick=\"window.location.href='/logout'\"><h3>Logout</h3></li>";
+                return "<li onclick=\"window.location.href='/logout'\"><h3>Logout</h3></li>" +
+                        "<h4 class=\"usernameLabel\">" + request.session.username + "</h4>";
         }
 
         return "<li onclick=\"window.location.href='/register'\"><h3>Register</h3></li>"+
