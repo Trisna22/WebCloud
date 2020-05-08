@@ -118,18 +118,18 @@ class accountHandler {
                 var baseError = "<p style=\"color: red;\">";
                 this.request.session.tries += 1;
 
+                 // Check if any inputbox is empty.
+                 if (this.checkIfEmpty([userName, password]) === true)
+                {
+                        this.buildLoginPage(baseError + "Make sure every input box is filled with data!</p>");
+                        return;
+                }
+
                 // If the user had too many tries.
                 if (this.request.session.tries >= 8) {
                         this.buildLoginPage(
                                 baseError + "Too many tries, please contact the adminstrator for resetting your account!</p>"
                         );
-                        return;
-                }
-
-                 // Check if any inputbox is empty.
-                 if (this.checkIfEmpty([userName, password]) === true)
-                {
-                        this.buildLoginPage(baseError + "Make sure every input box is filled with data!</p>");
                         return;
                 }
 

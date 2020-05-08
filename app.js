@@ -60,7 +60,6 @@ app.get('/my-files', function(request, response) {
 app.post('/login', urlencodedParser, function(request, response) {
 
         if (request.session.sessionID === undefined) {
-                console.log("New user!");
                 var sH = new sessionHandler();
                 request.session.sessionID = sH.createNewSessionID();
                 console.log("New sessionID: " + request.session.sessionID)
@@ -79,6 +78,14 @@ app.post('/login', urlencodedParser, function(request, response) {
         var password = request.body.password;
         var sessionID = request.session.sessionID;
 
+        if (username === undefined || password === undefined) {
+                console.log("Empty post request");
+                response.send(buildLoginPage(
+                        "<p style=\"color: green\">Invalid POST request sent!</p>"
+                ));
+                return;
+        }
+
         var aH = new accountHandler(request, response);
         aH.doLogin(username, password,sessionID)
 });
@@ -86,7 +93,6 @@ app.post('/login', urlencodedParser, function(request, response) {
 app.post("/register", urlencodedParser, function(request, response) {
         
         if (request.session.sessionID === undefined) {
-                console.log("New user!");
                 var sH = new sessionHandler();
                 request.session.sessionID = sH.createNewSessionID();
                 console.log("New sessionID: " + request.session.sessionID)
@@ -111,6 +117,16 @@ app.post("/register", urlencodedParser, function(request, response) {
         var password = request.body.password;
         var password2 = request.body.password2;
         var agreeTerms = request.body.agreeTerms;
+
+        if (userName === undefined || firstName === undefined ||
+                lastName === undefined || email === undefined ||
+                password === undefined || password2 === undefined ||
+                agreeTerms === undefined) {
+                response.send(buildLoginPage(
+                        "<p style=\"color: green\">Invalid POST request sent!</p>"
+                ));
+                return;
+        }
 
         var aH = new accountHandler(request, response);
         aH.registerNewAccount(userName, firstName, lastName,
