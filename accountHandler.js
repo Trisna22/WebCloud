@@ -255,7 +255,7 @@ class accountHandler {
 
                                 // Add information of the user to the database.
                                 connection.query("INSERT INTO UserAccounts VALUES ('" + 
-                                firstName + "','" + lastName + "','" + userName + "','" + email + "');",
+                                firstName + "','" + lastName + "','" + userName + "','" + email + "', NOW());",
                                 (err, result) => {
 
                                         connection.release();
@@ -342,7 +342,6 @@ class accountHandler {
                 // Hash the password.
                 var hashedPassword = crypto.createHash('md5').update(salt + password + salt).digest('hex');
 
-                console.log("")
                 return new Promise((resolve, reject) => {
                         pool.getConnection(function(err, connection) {
                                 connection.query(
