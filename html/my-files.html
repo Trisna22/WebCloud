@@ -1,7 +1,8 @@
 <html>
 <head>
         <link rel="stylesheet" href="/static/default-style.css">
-	<link rel="stylesheet" href="/static/myfiles-style.css"></link>
+        <link rel="stylesheet" href="/static/myfiles-style.css"></link>
+        <script src="static/fileUpload.js"></script>
 </head>
 <body>
         <header>
@@ -21,12 +22,46 @@
                 </div>
         </header>
 
+        <div id="modal" class="modal">
+                <div class="modal-content">
+                        <span id="modal-close">&times;</span>
+                        <button class="buttonUpload" type="submit" >Upload files</button>
+                        <h3>File(s) to upload:</h3>
+                        <table id="uploadList">
+                                
+                               <!-- <tr>
+                                        <td>Backup-raspberrypi.bak</td>
+                                        <td>3424</td>
+                                        <td>Binary file</td>
+                                </tr>
+                                <tr>
+                                        <td>README.md</td>
+                                        <td>5364</td>
+                                        <td>ASCII text file</td>
+                                </tr><tr>
+                                        <td>SSH_key.pem</td>
+                                        <td>948024</td>
+                                        <td>ASCII text file</td>
+                                </tr><tr>
+                                        <td>Certificate file.crt</td>
+                                        <td>49324</td>
+                                        <td>ASCII text file</td>
+                                </tr> -->
+                        </table>
+                </div>
+        </div>
         <div style="background-color: gainsboro;height: 100%;">
                 <div class="folderOptions">
                         <ul>
-                                <li>New file</li>
+                                <li onclick="document.getElementById('fileUpload').click();"><label class="fileUpload">
+                                        <input type="file" id="fileUpload" name="files" style="display: none" onchange="newFileAdded()" multiple>
+                                        Upload file
+                                </label></li>
                                 <li>New folder</li>
                                 <li>Delete</li>
+                                <label id="fileStatus">
+                                        0 file(s) selected
+                                </label>
                         </ul>
                 </div>  
                 <table class="fileList" border="1">

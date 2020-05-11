@@ -1,5 +1,6 @@
 const https = require('https');
 const fs = require('fs');
+const crypto = require('crypto');
 
 const express = require('express');
 const session = require('express-session');
@@ -10,7 +11,6 @@ app.use(session({
 	saveUninitialized: true
 }));
 
-const sessionHandler = require('./sessionHandler');
 const accountHandler = require("./accountHandler");
 
 const host = '0.0.0.0';
@@ -60,8 +60,7 @@ app.get('/my-files', function(request, response) {
 app.post('/login', urlencodedParser, function(request, response) {
 
         if (request.session.sessionID === undefined) {
-                var sH = new sessionHandler();
-                request.session.sessionID = sH.createNewSessionID();
+                request.session.sessionID = crypto.randomBytes(32).toString('base64');
                 console.log("New sessionID: " + request.session.sessionID)
         }
         else {
@@ -93,8 +92,7 @@ app.post('/login', urlencodedParser, function(request, response) {
 app.post("/register", urlencodedParser, function(request, response) {
         
         if (request.session.sessionID === undefined) {
-                var sH = new sessionHandler();
-                request.session.sessionID = sH.createNewSessionID();
+                request.session.sessionID = crypto.randomBytes(32).toString('base64');
                 console.log("New sessionID: " + request.session.sessionID)
 
                 request.session.loggedin = false;

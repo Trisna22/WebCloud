@@ -27,6 +27,21 @@
         cursor: pointer;
 }
 
+#fileStatus {
+        padding: 5px;
+        visibility: visible;
+        float: right;
+        background-color: aliceblue;
+        width: 250px;;
+        height: 30px;
+        border-radius: 10px;
+}
+
+#fileStatus:hover {
+        background-color: rgb(218, 234, 248);
+        cursor: pointer;
+        border: 1px solid black;
+}
 
 .fileList {
         width: 100%;
@@ -72,4 +87,86 @@ th {
 .fileSize {
         padding: 10px;
         text-align: center;
+}
+
+.modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+.modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 90%; /* Could be more or less, depending on screen size */
+        height: 300px;
+        overflow: auto;
+
+        /* Animation for modal */
+        animation-name: animatetop;
+        animation-duration: 0.4s
+}
+
+@keyframes animatetop {
+        from {top: -300px; opacity: 0}
+        to {top: 0; opacity: 1}
+}
+
+#modal-close {
+        color: rgb(255, 0, 0);
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        margin-right: 30px;
+}
+      
+#modal-close:hover,
+#modal-close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+}
+
+.modal-content table {
+        border-collapse: collapse;
+}
+
+.modal-content td {
+        padding: 10px;
+        border: 1px black;
+}
+
+.modal-content tr:hover {
+        background-color: rgb(209, 209, 209);
+        cursor: pointer;
+}
+
+#uploadList {
+        width: 650px;
+}
+
+.buttonUpload {
+        float: right;
+        background-color: darkblue;
+        color: white;
+        border: none;
+        width: 120px;
+        height: 50px;
+        font-size: 20px;;
+        margin-bottom: 30px;
+        margin-right: 30px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.buttonUpload:hover {
+        background-color: rgb(4, 4, 163);
+        cursor: pointer;
 }

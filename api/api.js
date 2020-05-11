@@ -2,7 +2,6 @@
 const express = require('express');
 const router = express.Router();
 
-const sessionHandler = require('../sessionHandler');
 
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -83,6 +82,10 @@ router.get('/users/:username', (request, response) => {
                 'username':username,
                 'apiKey':apiKey});
         })();
+});
+
+router.post('/upload', urlencodedParser, (request, response) => {
+        
 });
 
 function checkAPIRequest(username, apiKey) {
