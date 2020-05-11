@@ -30,13 +30,13 @@
                 <div class="inputBox">
                 <h3>Create a new account</h3>
                 <form action="/register" method="post">
-                        <input type="text" name="userName" placeholder="Username"/><br><br>
-                        <input type="text" name="firstName" placeholder="Firstname"/>
-                        <input type="text" name="lastName" placeholder="LastName"/><br><br>
-                        <input type="text" name="email" placeholder="email-address"/><br><br>
-                        <input type="password" name="password" placeholder="New password">
-                        <input type="password" name="password2" placeholder="Confirm password"><br><br>
-                        <input type="checkbox" name="agreeTerms">I agree with the terms and condition.</input><br><br>
+                        <input type="text" name="userName" placeholder="Username" required/><br><br>
+                        <input type="text" name="firstName" placeholder="Firstname" required/>
+                        <input type="text" name="lastName" placeholder="LastName" required/><br><br>
+                        <input type="text" name="email" placeholder="email-address" required/><br><br>
+                        <input type="password" name="password" placeholder="New password" required minlength="8">
+                        <input type="password" name="password2" placeholder="Confirm password" required minlength="8"><br><br>
+                        <input type="checkbox" name="agreeTerms" required>I agree with the terms and condition.</input><br><br>
                         <button type="submit" class="registerButton">Register</button>
                 </form>
                 </div>

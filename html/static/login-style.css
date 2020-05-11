@@ -27,6 +27,10 @@
         cursor: pointer;
 }
 
+.inputBox input:invalid {
+        box-shadow: 1px red;
+}
+
 .loginButton {
         background-color: darkblue;
         color: white;

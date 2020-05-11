@@ -29,6 +29,10 @@
         cursor: pointer;
 }
 
+.inputBox input:invalid {
+        box-shadow: 1px red;
+}
+
 .registerButton {
         background-color: darkblue;
         color: white;
