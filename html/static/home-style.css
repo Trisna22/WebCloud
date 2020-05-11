@@ -1,3 +1,53 @@
 .beginText {
-        background-color: rgb(192, 192, 206);
+       
+        padding: 10px;
+        background-color: #190061;
+        color: white;
+        font-size: large;
+        font-family: 'Franklin Gothic Medium', Arial, sans-serif;
+}
+
+.middleText {
+        font-size: large;
+        font-family: 'Franklin Gothic Medium', Arial, sans-serif;
+        padding: 10px;
+        background-color: #190061;
+        color: white;
+}
+
+.parallax {
+        background-image: url("/static/Lake-Moon-night.png");
+
+        min-height: 600px;
+
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        color: white;
+        font-size: 50px;
+}
+
+.parallax span {
+        position: absolute;
+        padding: 50px;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+@media screen and (min-width: 1100px) {
+        .parallax span {
+                padding-left: 20%;
+        }
+}
+
+.parallax2 {
+        background-image: url("/static/Lake-Moon-night.png");
+
+        min-height: 300px;
+
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
 }

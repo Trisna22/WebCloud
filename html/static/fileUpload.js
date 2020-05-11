@@ -11,8 +11,7 @@ function newFileAdded()
                 return;
         }
 
-        // Change action status.
-        document.getElementById('fileStatus').innerHTML = "uploading " + curFiles.length + " file(s)...";
+        document.getElementById('fileStatus').innerHTML = "uploading " + curFiles.length + " file(s)";
 
         // Add files to list for the user to see.
         var table = document.getElementById('uploadList');
@@ -50,9 +49,34 @@ function getFileType(fileName) {
         
         if (fileName.includes('.txt'))
                 return "ascii text";
-
+        else if (fileName.includes('.exe'))
+                return "windows PE file";
+        else if (fileName.includes('.dll'))
+                return "windows DLL file";
+        else if (fileName.includes('.mp3'))
+                return "mp3 music";
+        else if (fileName.includes('.mp4'))
+                return "mp4 video";
+        else if (fileName.includes('.jpg') || fileName.includes('.jpeg'))
+                return "jpeg picture";
+        else if (fileName.includes(".png") || fileName.includes(".pneg"))
+                return "png picture";
+        else if (fileName.includes(".py") || fileName.includes(".pyc"))
+                return "Python script";
+        else if (fileName.includes(".js"))
+                return "Javascript file";
+        else if (fileName.includes(".html"))
+                return "HTML file";
+        else if (fileName.includes(".css"))
+                return "CSS file";
+        else if (fileName.includes("php"))
+                return "PHP file";
+        else if (fileName.includes(".cpp") || fileName.includes(".c"))
+                return "C++/C code source file";
+        else if (fileName.includes(".h") || fileName.includes(".hpp"))
+                return "C++/C code header file";
         else 
-                return "unknown/probebly binary file";
+                return "unknown/probably binary file";
 }
 
 /*
