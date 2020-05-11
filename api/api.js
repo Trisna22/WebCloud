@@ -75,7 +75,6 @@ router.get('/users/:username', (request, response) => {
                 // Get the user files...
 
 
-                console.log("username: " + username);
                 response.json({'path':request.path,
                 'statusCode':0,
                 'decription':'ok',
@@ -85,7 +84,7 @@ router.get('/users/:username', (request, response) => {
 });
 
 router.post('/upload', urlencodedParser, (request, response) => {
-        
+
 });
 
 function checkAPIRequest(username, apiKey) {
