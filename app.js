@@ -25,7 +25,6 @@ app.use('/api', require('./api/api.js'));
 
 app.get('/', function (request, response) {
         var html = fs.readFileSync("html/index.html").toString();
-        html = html.replace('{{LOGIN}}', buildHeader(request));
         response.send(html);
 });
 

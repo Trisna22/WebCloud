@@ -1,40 +1,66 @@
 <html>
 <head>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>WebCloud storage</title>
         <link rel="stylesheet" href="/static/default-style.css">
         <link rel="stylesheet" href="/static/home-style.css"></link>
 </head>
 <body>
-        <header>
-                <!--<div>
-                <ul>
-                        <li onclick="window.location.href='/'">
-                                <h3>WebCloud</h3>
-                        </li>
-                        <li onclick="window.location.href='/my-files'">
-                                <h3>My files</h3>
-                        </li>
-                        <li onclick="window.location.href='/about-us'">
-                                <h3>About us</h3>
-                        </li>
-                        {{LOGIN}}
-                </ul>
-                </div>-->
-        </header> 
         <div class="parallax">
-                <span>WebCloud data storage</span>
+                <span onclick="window.location.href='/'">WebCloud data storage</span>
+                <p onclick="window.location.href='/login'">Login</p>
+                <p onclick="window.location.href='/register'">Register</p>
         </div>  
-        <center>
-                <div class="beginText">
-                        <h2>WebCloud The platform to store your data!</h2>
-                        <p>Your data safely encrypted and protected against the government, hackers and big companies.</p>
+        <div class="beginText">
+                <h2>The platform to store your data!</h2>
+                <p>Your data safely encrypted and protected against the government, hackers and big companies.</p>
+        
+                <div class="offerTable">
+                        <div class="columns">
+                                <ul class="offer">
+                                        <li class="title">Secure</li>
+                                        <li class="infoText">A secure service.</li>
+                                </ul>
+                        </div>
+                        <div class="columns">
+                                <ul class="offer">
+                                        <li class="title">Small cost</li>
+                                        <li class="infoText">You only pay a few euros per month</li>
+                                </ul>
+                        </div>
+                        <div class="columns">
+                                <ul class="offer">
+                                        <li class="title">Privacy</li>
+                                        <li class="infoText">The service is privacy protected</li>
+                                </ul>
+                        </div>
                 </div>
+        </div>
 
-                <div class="parallax2"></div>
-                <div class="middleText">
-                        <h3>Our goal is to protect our rights on privacy</h3>
-                        
-                </div>
-        </center>
+        
+        <div class="parallax2"></div>
+        <div class="middleText">
+                        <div class="leftText">
+                                <h3>Our goal is to protect our rights on privacy</h3>
+                                <p>Hackers and the government can't read your data because 
+                                        it is encrypted with an encryption-algorithm you can choose.
+                                The only person who knows the key is you, if you forget your key,
+                                 your data will be lost!</p>
+                        </div>
+                        <img src="/static/privacy_hand.png" class="privacyImg"/>
+        </div>
+
+        <div class="parallax3"/></div>
+        <div class="endText">
+                <h2>Who are we?</h2>
+                <p>
+                        The correct question is, who am I?
+                        I'm a hacker who is skilled in software security and reverse engineering.
+                        My coding skills isn't that bad either, I love coding since the third grade.
+                        Then I found out how to hack, this was a life-turning moment for me. More information about me: 
+                        <a href="/about-us">About-us</a>
+                </p>
+        </div>
 </body>
 </html>
