@@ -32,15 +32,14 @@ app.get('/login', function(request, response) {
         response.send(buildLoginPage
                 ("<p>In order to proceed you need " +
                 "to login or" +
-                " <a href=\"/register\">create</a> an account first!</p>")
-                );
+                " <a href=\"/register\">create</a> an account first!</p>", request));
 });
 
 app.get('/register', function(request, response) {
         response.send(buildRegisterPage
                 ("<p>In order to proceed you need " +
                 "to <a href=\"/login\">login</a> or" +
-                " create an account first!</p>")
+                " create an account first!</p>", request)
                 );
 });
 
@@ -65,7 +64,7 @@ app.post('/login', urlencodedParser, function(request, response) {
         else {
                 if (request.session.loggedin === true) {
                         response.send(buildLoginPage(
-                                "<p style=\"color: green\">You already logged in!</p>"
+                                "<p style=\"color: red\">You already logged in!</p>", request
                         ));
                         return;
                 }
@@ -79,7 +78,7 @@ app.post('/login', urlencodedParser, function(request, response) {
         if (username === undefined || password === undefined) {
                 console.log("Empty post request");
                 response.send(buildLoginPage(
-                        "<p style=\"color: green\">Invalid POST request sent!</p>"
+                        "<p style=\"color: green\">Invalid POST request sent!</p>", request
                 ));
                 return;
         }
@@ -100,7 +99,7 @@ app.post("/register", urlencodedParser, function(request, response) {
         else {
                 if (request.session.loggedin === true) {
                         response.send(buildRegisterPage(
-                                "<p style=\"color: green\">You already logged in!</p>"
+                                "<p style=\"color: red\">You already logged in!</p>", request
                         ));
                         return;
                 }
@@ -120,7 +119,7 @@ app.post("/register", urlencodedParser, function(request, response) {
                 password === undefined || password2 === undefined ||
                 agreeTerms === undefined) {
                 response.send(buildLoginPage(
-                        "<p style=\"color: green\">Invalid POST request sent!</p>"
+                        "<p style=\"color: green\">Invalid POST request sent!</p>", request
                 ));
                 return;
         }
@@ -132,12 +131,13 @@ app.post("/register", urlencodedParser, function(request, response) {
 
 app.get('/logout', (request, response)=> {
         if (request.session.loggedin === undefined) {
-                response.send(buildLoginPage("<p style=\"color: red\">You are not logged in!</p>"));
+                response.send(buildLoginPage("<p style=\"color: red\">You are not logged in!</p>", request));
                 return;
         }
         
-        request.session.loggedin = false;
-        request.session.sessionID = null;
+        request.session.loggedin = undefined;
+        request.session.sessionID = undefined;
+        request.session.username = undefined;
         request.session.destroy(function(error) {
                 if (error) {
                         console.log(error);
@@ -145,31 +145,41 @@ app.get('/logout', (request, response)=> {
                 }
 
                 response.send(buildLoginPage(
-                        "<p style=\"color: green\">Succesfully logged out!</p>"
+                        "<p style=\"color: green\">Succesfully logged out!</p>", request
                 ));
         });
 
 });
 
 function buildHeader(request) {
-        if (request.session.loggedin !== undefined && request.session.loggedin === true) {
-                return "<li onclick=\"window.location.href='/logout'\"><h3>Logout</h3></li>" +
-                        "<h4 class=\"usernameLabel\">" + request.session.username + "</h4>";
-        }
 
-        return "<li onclick=\"window.location.href='/register'\"><h3>Register</h3></li>"+
-        "<li onclick=\"window.location.href='/login'\"><h3>Login</h3></li>";
+        if (request === undefined || request.session === undefined
+                || request.session.loggedin === undefined ||
+                 request.session.loggedin === false) {
+                return "<li onclick=\"window.location.href='/'\"><h3>WebCloud</h3></li>" +
+                "<li onclick=\"window.location.href='/about-us'\"><h3>About us</h3></li>" +
+                "<li onclick=\"window.location.href='/register'\"><h3>Register</h3></li>"+
+                "<li onclick=\"window.location.href='/login'\"><h3>Login</h3></li>";
+        }
+        return "<li onclick=\"window.location.href='/my-files'\"><h3>My-Files</h3></li>" +
+                "<li onclick=\"window.location.href='/my-profile'\"><h3>My-Profile</h3></li>" +
+                "<li onclick=\"window.location.href='/settings'\"><h3>Settings</h3></li>" +
+                "<li onclick=\"window.location.href='/logout'\"><h3>Logout</h3></li>" +
+                "<h4 class=\"usernameLabel\">" + request.session.username + "</h4>";
+
 }
 
-function buildRegisterPage(message) {
+function buildRegisterPage(message, request) {
         var html = fs.readFileSync('html/register.html').toString();
         html = html.replace('{{registerText}}', message);
+        html = html.replace('{{LOGIN}}',  buildHeader(request));
         return html;
 }
 
-function buildLoginPage(message) {
+function buildLoginPage(message, request) {
         var html = fs.readFileSync('html/login.html').toString();
-        html = html.replace('{{loginText}}', message);
+        html = html.replace('{{loginText}}',message);
+        html = html.replace('{{LOGIN}}', buildHeader(request));
         return html;
 }
 

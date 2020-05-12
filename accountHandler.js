@@ -20,13 +20,31 @@ class accountHandler {
         buildRegisterPage(message) {
                 var html = fs.readFileSync('html/register.html').toString();
                 html = html.replace('{{registerText}}', message);
+                html = html.replace('{{LOGIN}}', this.buildHeader(this.request));
                 this.response.send(html);
         }
 
         buildLoginPage(message) {
                 var html = fs.readFileSync('html/login.html').toString();
                 html = html.replace('{{loginText}}', message);
+                html = html.replace('{{LOGIN}}', this.buildHeader(this.request));
                 this.response.send(html);
+        }
+
+        buildHeader(request) {
+
+                if (request === undefined || request.session.loggedin === undefined || request.session.loggedin === false) {
+                        return "<li onclick=\"window.location.href='/'\"><h3>WebCloud</h3></li>" +
+                        "<li onclick=\"window.location.href='/about-us'\"><h3>About us</h3></li>" +
+                        "<li onclick=\"window.location.href='/register'\"><h3>Register</h3></li>"+
+                        "<li onclick=\"window.location.href='/login'\"><h3>Login</h3></li>";
+                }
+                return "<li onclick=\"window.location.href='/my-files'\"><h3>My-Files</h3></li>" +
+                        "<li onclick=\"window.location.href='/my-profile'\"><h3>My-Profile</h3></li>" +
+                        "<li onclick=\"window.location.href='/settings'\"><h3>Settings</h3></li>" +
+                        "<li onclick=\"window.location.href='/logout'\"><h3>Logout</h3></li>" +
+                        "<h4 class=\"usernameLabel\">" + request.session.username + "</h4>";
+        
         }
 
         /*
@@ -104,6 +122,12 @@ class accountHandler {
                                         return;
                                 }
                                 else {
+
+                                        this.request.session.tries = 0;
+                                        this.request.session.username = userName;
+                                        this.request.session.email = email;
+                                        this.request.session.loggedin = true;
+                                        
                                         this.response.redirect('/my-files');
                                 }
                         }
@@ -146,7 +170,7 @@ class accountHandler {
                         // Maybe the username is an email-address
                         const result2 = await this.checkIfAlreadyExists(userName, "emailAddress");
                         if (result === 0 && result2 === 0) {
-                                this.buildLoginPage(baseError + "Unknown username or password given!</p>");
+                                this.buildLoginPage(baseError + "Invalid username or password given!</p>");
                                 return;
                         }
 

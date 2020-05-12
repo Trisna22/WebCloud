@@ -2,18 +2,20 @@
         margin-top: 100px;
         width: 80%;
         height: 400px;
-        border: 2px solid #ccc;
+        border: 2px solid #6F2232;
         border-radius:  10px;
-        background-color: rgb(235, 231, 231);
+        background-color: #1A1A1D;
+        color: white;
 }
 .loginBox h3 {
-        color: darkblue;
+        color: #C3073F;
         font-size: 30px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .inputBox {
         margin-top: 40px;
-        background-color: #ccc;
+        background-color: #282828;
         padding: 20px;
         width: 80%;
         border-radius: 5px;
@@ -28,11 +30,11 @@
 }
 
 .inputBox input:invalid {
-        box-shadow: 1px red;
+        box-shadow: 1px 6F2232;
 }
 
 .loginButton {
-        background-color: darkblue;
+        background-color: #6F2232;
         color: white;
         border: none;
         width: 120px;
@@ -41,6 +43,6 @@
 }
 
 .loginButton:hover {
-        background-color: rgb(8, 8, 179);
+        background-color: rgb(143, 37, 58);
         cursor: pointer;
 }

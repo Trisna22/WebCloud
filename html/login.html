@@ -9,21 +9,7 @@
         <header>
                 <div>
                 <ul>
-                        <li onclick="window.location.href='/'">
-                                <h3>WebCloud</h3>
-                        </li>
-                        <li onclick="window.location.href='/my-files'">
-                                <h3>My files</h3>
-                        </li>
-                        <li onclick="window.location.href='/about-us'">
-                                <h3>About us</h3>
-                        </li>
-                        <li onclick="window.location.href='/register'">
-                                <h3>Register</h3>
-                        </li>
-                        <li onclick="window.location.href='/login'">
-                                <h3>Login</h3>
-                        </li>
+                        {{LOGIN}}
                 </ul>
                 </div>
         </header>
@@ -31,7 +17,7 @@
         <center>
                 <div class="loginBox">
                         <div class="inputBox">
-                        <h3>Sign in account</h3>
+                        <h3>Log in account</h3>
                         <form action="/login" method="post">
                                 <input type="text" name="userName" placeholder="Username/Email-address" required><br><br>
                                 <input type="password" name="password" placeholder="Password" required><br><br>
