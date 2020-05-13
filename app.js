@@ -49,6 +49,12 @@ app.get('/about-us', function(request, response) {
         response.send(html);
 });
 
+app.get('/service', function(request, response) {
+        var html = fs.readFileSync('html/service.html').toString();
+        html = html.replace('{{LOGIN}}', buildHeader(request));
+        response.send(html);
+});
+
 app.get('/my-files', function(request, response) {
         var html = fs.readFileSync('html/my-files.html').toString();
         html = html.replace('{{LOGIN}}', buildHeader(request));
@@ -200,6 +206,7 @@ function buildHeader(request) {
                 || request.session.loggedin === undefined ||
                  request.session.loggedin === false) {
                 return "<li onclick=\"window.location.href='/'\"><h3>WebCloud</h3></li>" +
+                "<li onclick=\"window.location.href='/service'\"><h3>Our service</h3></li>" +
                 "<li onclick=\"window.location.href='/about-us'\"><h3>About us</h3></li>" +
                 "<li onclick=\"window.location.href='/register'\"><h3>Register</h3></li>"+
                 "<li onclick=\"window.location.href='/login'\"><h3>Login</h3></li>";

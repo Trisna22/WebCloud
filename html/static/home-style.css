@@ -8,7 +8,7 @@ body .beginText {
         color: white;
         font-size: large;
         font-family: 'Franklin Gothic Medium', Arial, sans-serif;
-        height: 500px;
+        height: 550px;
 }
 
 .offerTable {
@@ -133,7 +133,7 @@ body .beginText {
 
 
 .parallax {
-        background-image: url("/static/Lake-Moon-night.png");
+        background-image: url("/static/images/Lake-Moon-night.png");
 
         min-height: 600px;
 
@@ -167,7 +167,7 @@ body .beginText {
 }
 
 .parallax2 {
-        background-image: url("/static/Lake-Moon-night.png");
+        background-image: url("/static/images/Lake-Moon-night.png");
 
         min-height: 300px;
 
@@ -179,7 +179,7 @@ body .beginText {
 
 
 .parallax3 {
-        background-image: url("/static/Lake-Moon-night.png");
+        background-image: url("/static/images/Lake-Moon-night.png");
 
         min-height: 350px;
 

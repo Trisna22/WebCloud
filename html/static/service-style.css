@@ -1,0 +1,33 @@
+.parralax {
+        background-image: url("/static/images/stars-night.png");
+
+        min-height: 400px;
+
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        color: white;
+        font-size: 50px;
+}
+
+.introText {
+        background-color: #1A1A1D;
+        height: 350px;
+        color: white;
+        padding: 10px;
+        font-size: large;
+        font-family: 'Franklin Gothic Medium', Arial, sans-serif;
+
+}
+
+.introText p {
+        padding: 10px;
+        max-width: 700px;;
+}
+/*
+1A1A1D
+6F2232
+C3073F
+*/

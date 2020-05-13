@@ -1,6 +1,6 @@
 
 body {
-        background-image: url('/static/night-tree.png');
+        background-image: url('/static/images/night-tree.png');
         background-blend-mode: normal;
         background-size: cover;
 }
