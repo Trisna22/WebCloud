@@ -1,3 +1,10 @@
+body {
+        background-image: url('/static/night-sky.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+}
+
 .loginBox {
         margin-top: 100px;
         width: 80%;
@@ -6,7 +13,14 @@
         border-radius:  10px;
         background-color: #1A1A1D;
         color: white;
+        max-width: 800px;
+        opacity: 85%;
 }
+
+.loginBox:hover {
+        opacity: 95%;
+}
+
 .loginBox h3 {
         color: #C3073F;
         font-size: 30px;

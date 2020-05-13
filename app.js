@@ -55,6 +55,19 @@ app.get('/my-files', function(request, response) {
         response.send(html);
 });
 
+
+app.get('/settings', function (request, response) {
+        var html = fs.readFileSync('html/settings.html').toString();
+        html = html.replace('{{LOGIN}}', buildHeader(request));
+        response.send(html);
+});
+
+app.get('/my-profile', function (request, response) {
+        var html = fs.readFileSync('html/my-profile.html').toString();
+        html = html.replace('{{LOGIN}}', buildHeader(request));
+        response.send(html);
+});
+
 app.post('/login', urlencodedParser, function(request, response) {
 
         if (request.session.sessionID === undefined) {

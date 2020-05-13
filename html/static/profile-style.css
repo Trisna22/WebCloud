@@ -1,0 +1,48 @@
+
+body {
+        background-image: url('/static/night-tree.png');
+        background-blend-mode: normal;
+        background-size: cover;
+}
+.profileBox {
+        opacity: 70%;
+        border: 1px solid #C3073F;
+        background-color: #1A1A1D;
+        width: 800px;
+        height: 600px;
+        margin-top: 10%;
+        color: white;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.profileBox:hover {
+        opacity: 95%;
+}
+
+.profileBox table{
+        padding: 20px;
+        float: left;
+        color: white;
+}
+
+.profileBox td {
+        padding-left: 20px;
+        padding-right: 20px;;
+}
+
+.settingsBtn {
+        margin-top: 50px;
+        border: none;
+        background-color: #6F2232;
+        color: white;
+        height: 50px;
+        width: 150px;
+}
+
+.settingsBtn:hover {
+       background-color:  rgb(143, 37, 58);
+       cursor: pointer; 
+}
+/*
+#6F2232
+*/

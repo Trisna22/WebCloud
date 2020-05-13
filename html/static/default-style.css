@@ -42,3 +42,7 @@ header div li:hover {
         float: right;
         margin-right: 30px;
 }
+
+a {
+        color: #C3073F;
+}
