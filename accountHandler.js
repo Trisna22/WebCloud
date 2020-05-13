@@ -254,7 +254,7 @@ class accountHandler {
                                 // Check if fields already exist in database.
                                 connection.query(
                                 "SELECT EXISTS (SELECT * FROM UserAccounts "+
-                                "WHERE " + field + " = '" + value + "') as result;",
+                                "WHERE " + escape(field) + " = '" + escape(value) + "') as result;",
                                 (err, result) => {
                                         connection.release();
 
@@ -279,7 +279,7 @@ class accountHandler {
 
                                 // Add information of the user to the database.
                                 connection.query("INSERT INTO UserAccounts VALUES ('" + 
-                                firstName + "','" + lastName + "','" + userName + "','" + email + "', NOW());",
+                                escape(firstName) + "','" + escape(lastName) + "','" + escape(userName) + "','" + escape(email) + "', NOW());",
                                 (err, result) => {
 
                                         connection.release();
@@ -308,7 +308,7 @@ class accountHandler {
 
                                 // Add the hash and salt to database.
                                 connection.query("INSERT INTO UserCredentials VALUES ('" + 
-                                        email + "','" + hash + "','" + salt + "');",
+                                        escape(email) + "','" + escape(hash) + "','" + escape(salt) + "');",
                                         (err, result) => {
                                         connection.release();
 
@@ -330,7 +330,7 @@ class accountHandler {
                 return new Promise((resolve, reject) => {
                         pool.getConnection(function(err, connection) {
                                 connection.query(
-                                "SELECT emailAddress as result FROM UserAccounts WHERE userName = '" + userName + "';"
+                                "SELECT emailAddress as result FROM UserAccounts WHERE userName = '" + escape(userName) + "';"
                                 , (err, data) => {
                                         connection.release();
 
@@ -348,7 +348,7 @@ class accountHandler {
                 return new Promise((resolve, reject) => {
                         pool.getConnection(function(err, connection) {
                                 connection.query(
-                                "SELECT salt as result FROM UserCredentials WHERE emailAddress = '" + email + "';",
+                                "SELECT salt as result FROM UserCredentials WHERE emailAddress = '" + escape(email) + "';",
                                  (err, data) => {
                                         connection.release();
 
@@ -370,7 +370,7 @@ class accountHandler {
                         pool.getConnection(function(err, connection) {
                                 connection.query(
                                 "SELECT hashedPassword as result FROM UserCredentials WHERE emailAddress = '" + 
-                                email + "' AND salt = '" + salt + "';", (err, data) => {
+                                escape(email) + "' AND salt = '" + escape(salt) + "';", (err, data) => {
                                         connection.release();
 
                                         if (data.length === 0) {
@@ -381,6 +381,38 @@ class accountHandler {
                                                 return resolve(true);
                                         else
                                                 return resolve(false);
+                                });
+                        });
+                });
+        }
+
+        getAccountInfo(username) {
+                return new Promise((resolve, reject) => {
+
+                        pool.getConnection((err, connection) => {
+                                connection.query(
+                                "SELECT * FROM UserAccounts as result WHERE userName = '" + escape(username) + "';", 
+                                (err, data) => {
+                                        var retVal = {'returnValue':false};
+
+                                        connection.release();
+                                        if (err) {
+                                                console.log(err);
+                                                return resolve(retVal);
+                                        }
+
+                                        if (data === undefined) {
+                                                return resolve(retVal);
+                                        }
+
+                                        return resolve({
+                                                'returnValue':true,
+                                                'username':data[0]['userName'],
+                                                'firstname':data[0]['firstName'],
+                                                'lastname':data[0]['lastName'],
+                                                'email':data[0]['emailAddress'],
+                                                'createdOn':data[0]['createdOn']
+                                        });
                                 });
                         });
                 });

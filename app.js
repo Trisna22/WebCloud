@@ -63,9 +63,39 @@ app.get('/settings', function (request, response) {
 });
 
 app.get('/my-profile', function (request, response) {
+        
+        (async () => {
         var html = fs.readFileSync('html/my-profile.html').toString();
         html = html.replace('{{LOGIN}}', buildHeader(request));
-        response.send(html);
+        
+        if (request.session.loggedin === undefined || request.session.loggedin === false) {
+                html = html.replace("{{username}}", "not_logged_in");
+                html = html.replace("{{createdOn}}", "not_logged_in");
+                html = html.replace("{{firstname}}", "not_logged_in");
+                html = html.replace("{{lastname}}", "not_logged_in");
+                html = html.replace("{{email}}", "not_logged_in");
+        }
+        else {
+                var aH = new accountHandler(request, response);
+
+                        const userInfo = await aH.getAccountInfo(request.session.username);
+                        if (userInfo.returnValue === false) {
+                                html = html.replace("{{username}}", "not_logged_in");
+                                html = html.replace("{{createdOn}}", "not_logged_in");
+                                html = html.replace("{{firstname}}", "not_logged_in");
+                                html = html.replace("{{lastname}}", "not_logged_in");
+                                html = html.replace("{{email}}", "not_logged_in");
+                        }
+        
+                        html = html.replace("{{username}}", userInfo['username']);
+                        html = html.replace("{{createdOn}}", userInfo['createdOn']);
+                        html = html.replace("{{firstname}}", userInfo['firstname']);
+                        html = html.replace("{{lastname}}", userInfo['lastname']);
+                        html = html.replace("{{email}}", userInfo['email']);
+                }
+                
+                response.send(html);
+        })();
 });
 
 app.post('/login', urlencodedParser, function(request, response) {
