@@ -88,7 +88,6 @@ class accountHandler {
                         return;
                 }
 
-
                 // Check if user already exists.
                 (async () => {
                         const result = await this.checkIfAlreadyExists(userName, "userName");
@@ -104,6 +103,8 @@ class accountHandler {
                                         "Click <a href=\"/login\">here</a> to login or try another email-address!</p>");
                                         return;
                                 }
+                                this.request.session.newUser = true;
+
 
                                 const result2 = await this.createNewAccount(userName, firstName, lastName,
                                         email);
